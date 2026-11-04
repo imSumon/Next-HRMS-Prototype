@@ -1,0 +1,359 @@
+{
+  "companies": [
+    {
+      "id": "co-proedge",
+      "name": "Pro-Edge Associates Limited",
+      "code": "PROEDGE",
+      "industry": "HRMS / Services",
+      "status": "Legacy reference",
+      "progress": 100,
+      "modules": [
+        "PIMS",
+        "Attendance",
+        "Leave",
+        "Payroll",
+        "Organization"
+      ]
+    },
+    {
+      "id": "co-vtl",
+      "name": "Viyellatex",
+      "code": "VIYELLATEX",
+      "industry": "Manufacturing / Apparel",
+      "status": "Legacy reference",
+      "progress": 100,
+      "modules": [
+        "PIMS",
+        "Attendance",
+        "Leave",
+        "Payroll",
+        "Organization"
+      ]
+    },
+    {
+      "id": "co-atlas",
+      "name": "Atlas",
+      "code": "ATLAS",
+      "industry": "Legacy client reference",
+      "status": "Reference only",
+      "progress": 0,
+      "modules": [
+        "Organization"
+      ]
+    },
+    {
+      "id": "co-ceva",
+      "name": "CEVA",
+      "code": "CEVA",
+      "industry": "Legacy client reference",
+      "status": "Reference only",
+      "progress": 0,
+      "modules": [
+        "Organization"
+      ]
+    },
+    {
+      "id": "co-nree",
+      "name": "NREE DEMO",
+      "code": "NREEDEMO",
+      "industry": "Demo tenant from legacy UI audit",
+      "status": "Legacy UI reference",
+      "progress": 100,
+      "modules": [
+        "PIMS",
+        "Attendance",
+        "Leave",
+        "Payroll",
+        "Organization"
+      ]
+    },
+    {
+      "id": "co-pms",
+      "name": "PMS DEMO",
+      "code": "ABC",
+      "industry": "Demo tenant from legacy UI audit",
+      "status": "Legacy UI reference",
+      "progress": 100,
+      "modules": [
+        "PIMS",
+        "Attendance",
+        "Leave",
+        "Payroll",
+        "Organization"
+      ]
+    }
+  ],
+  "modules": [
+    {
+      "id": "employee",
+      "name": "Employee Management",
+      "desc": "Employee records and lifecycle"
+    },
+    {
+      "id": "organization",
+      "name": "Organization",
+      "desc": "Branches, departments and reporting"
+    },
+    {
+      "id": "attendance",
+      "name": "Attendance",
+      "desc": "Punches, shifts, rosters and exceptions"
+    },
+    {
+      "id": "leave",
+      "name": "Leave Management",
+      "desc": "Leave requests, balances and approvals"
+    },
+    {
+      "id": "payroll",
+      "name": "Payroll",
+      "desc": "Payroll preparation and reconciliation"
+    },
+    {
+      "id": "recruitment",
+      "name": "Recruitment",
+      "desc": "Vacancies and hiring pipeline"
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "desc": "Goals and reviews"
+    },
+    {
+      "id": "assets",
+      "name": "Assets",
+      "desc": "Assets assigned to employees"
+    }
+  ],
+  "employees": [
+    {
+      "id": "LEG-PRO-EMP-001",
+      "name": "Legacy employee A (masked)",
+      "title": "Employee master snapshot",
+      "dept": "Legacy department — verify from source",
+      "branch": "Pro-Edge",
+      "status": "Historical reference",
+      "attendance": "Source data not copied"
+    },
+    {
+      "id": "LEG-PRO-EMP-002",
+      "name": "Legacy employee B (masked)",
+      "title": "Employee master snapshot",
+      "dept": "Legacy department — verify from source",
+      "branch": "Pro-Edge",
+      "status": "Historical reference",
+      "attendance": "Source data not copied"
+    },
+    {
+      "id": "LEG-VTL-EMP-001",
+      "name": "Legacy employee A (masked)",
+      "title": "Employee master snapshot",
+      "dept": "Legacy department — verify from source",
+      "branch": "Viyellatex",
+      "status": "Historical reference",
+      "attendance": "Source data not copied"
+    },
+    {
+      "id": "LEG-VTL-EMP-002",
+      "name": "Legacy employee B (masked)",
+      "title": "Employee master snapshot",
+      "dept": "Legacy department — verify from source",
+      "branch": "Viyellatex",
+      "status": "Historical reference",
+      "attendance": "Source data not copied"
+    }
+  ],
+  "punches": [
+    {
+      "id": "EVT-001",
+      "employee": "Maya Hasan",
+      "card": "CARD-4821",
+      "time": "2026-10-29 08:57:14 +06:00",
+      "device": "DHK-GATE-01",
+      "status": "Accepted"
+    },
+    {
+      "id": "EVT-002",
+      "employee": "Rafi Ahmed",
+      "card": "CARD-4822",
+      "time": "2026-10-29 09:06:42 +06:00",
+      "device": "DHK-GATE-01",
+      "status": "Accepted"
+    },
+    {
+      "id": "EVT-003",
+      "employee": "Sadia Karim",
+      "card": "UNMAPPED-993",
+      "time": "2026-10-29 09:12:02 +06:00",
+      "device": "DHK-GATE-02",
+      "status": "Unmapped identity"
+    }
+  ],
+  "leave": [
+    {
+      "id": "LR-2001",
+      "employee": "Maya Hasan",
+      "type": "Annual Leave",
+      "dates": "Nov 5–6, 2026",
+      "days": 2,
+      "status": "Pending manager approval"
+    },
+    {
+      "id": "LR-2002",
+      "employee": "Rafi Ahmed",
+      "type": "Sick Leave",
+      "dates": "Oct 28, 2026",
+      "days": 1,
+      "status": "Approved"
+    },
+    {
+      "id": "LR-2003",
+      "employee": "Sadia Karim",
+      "type": "Casual Leave",
+      "dates": "Nov 12, 2026",
+      "days": 1,
+      "status": "Pending HR review"
+    }
+  ],
+  "users": [
+    {
+      "name": "Ayesha Rahman",
+      "email": "ayesha.admin@example.test",
+      "persona": "Company Admin",
+      "role": "Company Administrator"
+    },
+    {
+      "name": "Farhan Kabir",
+      "email": "farhan.hr@example.test",
+      "persona": "HR Manager",
+      "role": "HR Operations (illustrative)"
+    },
+    {
+      "name": "Nadia Islam",
+      "email": "nadia.employee@example.test",
+      "persona": "Employee",
+      "role": "Employee Self-Service"
+    },
+    {
+      "name": "Imran Chowdhury",
+      "email": "imran.manager@example.test",
+      "persona": "Department Manager",
+      "role": "Department Manager (illustrative)"
+    }
+  ],
+  "roles": [
+    {
+      "name": "Platform Superadmin",
+      "scope": "Platform",
+      "perms": [
+        "company.enroll",
+        "company.view",
+        "module.configure",
+        "platform.audit"
+      ]
+    },
+    {
+      "name": "Company Administrator",
+      "scope": "Company",
+      "perms": [
+        "users.view",
+        "users.invite",
+        "organization.configure",
+        "policy.configure"
+      ]
+    },
+    {
+      "name": "HR Operations (illustrative)",
+      "scope": "Company / assigned branches",
+      "perms": [
+        "employees.view",
+        "employees.update",
+        "attendance.review",
+        "leave.review"
+      ]
+    },
+    {
+      "name": "Employee Self-Service",
+      "scope": "Own records",
+      "perms": [
+        "profile.view_own",
+        "leave.request_own",
+        "attendance.view_own"
+      ]
+    }
+  ],
+  "policies": [
+    {
+      "name": "Pro-Edge — Attendance status vocabulary",
+      "desc": "Legacy uses word-based statuses. Audit found employee shift used as the shift source; calendar assignments were empty in the audited snapshot. Grace/late threshold must be verified from source before migration."
+    },
+    {
+      "name": "Viyellatex — Attendance status vocabulary",
+      "desc": "Legacy uses letter-based statuses. Audit found calendar-based shift selection, 30 mismatches against employee shift, and a late classification around 117 seconds in the reviewed example."
+    },
+    {
+      "name": "Pro-Edge — Attendance grace and incomplete punches",
+      "desc": "Audit reference: a late label appeared after about 16 minutes; incomplete punch represented as Present plus explanatory text. Preserve as historical behavior evidence, not a universal rule."
+    },
+    {
+      "name": "Viyellatex — Attendance grace and incomplete punches",
+      "desc": "Audit reference: zero-grace behavior was observed in the reviewed case; status/pay interpretation requires source validation. Do not silently carry this into the universal product."
+    },
+    {
+      "name": "Policy version history / migration baseline",
+      "desc": "Capture source company, source table, effective dates, extracted-at timestamp, approval evidence, and reconciliation result. Exact version dates and values are not all established in the available audit summary."
+    }
+  ],
+  "audit": [
+    {
+      "time": "2026-10-17",
+      "actor": "Functional audit",
+      "action": "Recorded legacy attendance behavior",
+      "target": "Pro-Edge / company 24 / legacy_proedge",
+      "result": "Evidence only"
+    },
+    {
+      "time": "2026-10-17",
+      "actor": "Functional audit",
+      "action": "Recorded legacy attendance behavior",
+      "target": "Viyellatex / company 20 / legacy_vtlhrm",
+      "result": "Evidence only"
+    },
+    {
+      "time": "2026-10-07",
+      "actor": "Read-only UI audit",
+      "action": "Captured legacy company selection behavior",
+      "target": "NREE DEMO and PMS DEMO",
+      "result": "Reference"
+    },
+    {
+      "time": "Pending extraction",
+      "actor": "Migration workstream",
+      "action": "Employee records and full policy version history",
+      "target": "Legacy databases",
+      "result": "Not imported"
+    }
+  ],
+  "legacyNotes": [
+    {
+      "company": "Pro-Edge Associates Limited",
+      "source": "legacy_proedge; company ID 24",
+      "finding": "Word-based attendance statuses; employee shift used in audited processing; calendar assignment empty in the audited snapshot; late label observed after about 16 minutes; incomplete punch shown as Present plus text."
+    },
+    {
+      "company": "Viyellatex",
+      "source": "legacy_vtlhrm; company ID 20",
+      "finding": "Letter-based attendance statuses; calendar used for shift resolution; 30 shift mismatches found; late classification observed at 117 seconds in the reviewed example."
+    },
+    {
+      "company": "NREE DEMO",
+      "source": "Legacy UI audit (2026-10-07)",
+      "finding": "Company selection card; short code nreedemo; company dashboard opens after selecting company."
+    },
+    {
+      "company": "PMS DEMO",
+      "source": "Legacy UI audit (2026-10-07)",
+      "finding": "Second company card shown for the demo admin; short code abc."
+    }
+  ]
+}

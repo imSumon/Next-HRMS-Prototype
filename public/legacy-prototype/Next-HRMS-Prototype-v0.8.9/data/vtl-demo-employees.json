@@ -1,0 +1,149 @@
+{
+  "notice": "Synthetic VTL-style test fixtures only. Not actual Viyellatex employee or department data. Replace only with an approved, minimized legacy export.",
+  "employees": [
+    {
+      "employee_id": "VTL-DEMO-0001",
+      "display_name": "VTL Demo Employee 001",
+      "department": "Production \u2014 illustrative",
+      "designation": "Operator (demo)",
+      "card_id": "VTL-CARD-0001",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0002",
+      "display_name": "VTL Demo Employee 002",
+      "department": "Quality \u2014 illustrative",
+      "designation": "Quality Assistant (demo)",
+      "card_id": "VTL-CARD-0002",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0003",
+      "display_name": "VTL Demo Employee 003",
+      "department": "Maintenance \u2014 illustrative",
+      "designation": "Technician (demo)",
+      "card_id": "VTL-CARD-0003",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0004",
+      "display_name": "VTL Demo Employee 004",
+      "department": "Cutting \u2014 illustrative",
+      "designation": "Officer (demo)",
+      "card_id": "VTL-CARD-0004",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0005",
+      "display_name": "VTL Demo Employee 005",
+      "department": "Sewing \u2014 illustrative",
+      "designation": "Operator (demo)",
+      "card_id": "VTL-CARD-0005",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0006",
+      "display_name": "VTL Demo Employee 006",
+      "department": "Finishing \u2014 illustrative",
+      "designation": "Quality Assistant (demo)",
+      "card_id": "VTL-CARD-0006",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0007",
+      "display_name": "VTL Demo Employee 007",
+      "department": "Stores \u2014 illustrative",
+      "designation": "Technician (demo)",
+      "card_id": "VTL-CARD-0007",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0008",
+      "display_name": "VTL Demo Employee 008",
+      "department": "HR & Admin \u2014 illustrative",
+      "designation": "Officer (demo)",
+      "card_id": "VTL-CARD-0008",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0009",
+      "display_name": "VTL Demo Employee 009",
+      "department": "Production \u2014 illustrative",
+      "designation": "Operator (demo)",
+      "card_id": "VTL-CARD-0009",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0010",
+      "display_name": "VTL Demo Employee 010",
+      "department": "Quality \u2014 illustrative",
+      "designation": "Quality Assistant (demo)",
+      "card_id": "VTL-CARD-0010",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0011",
+      "display_name": "VTL Demo Employee 011",
+      "department": "Maintenance \u2014 illustrative",
+      "designation": "Technician (demo)",
+      "card_id": "VTL-CARD-0011",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0012",
+      "display_name": "VTL Demo Employee 012",
+      "department": "Cutting \u2014 illustrative",
+      "designation": "Officer (demo)",
+      "card_id": "VTL-CARD-0012",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0013",
+      "display_name": "VTL Demo Employee 013",
+      "department": "Sewing \u2014 illustrative",
+      "designation": "Operator (demo)",
+      "card_id": "VTL-CARD-0013",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0014",
+      "display_name": "VTL Demo Employee 014",
+      "department": "Finishing \u2014 illustrative",
+      "designation": "Quality Assistant (demo)",
+      "card_id": "VTL-CARD-0014",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0015",
+      "display_name": "VTL Demo Employee 015",
+      "department": "Stores \u2014 illustrative",
+      "designation": "Technician (demo)",
+      "card_id": "VTL-CARD-0015",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    },
+    {
+      "employee_id": "VTL-DEMO-0016",
+      "display_name": "VTL Demo Employee 016",
+      "department": "HR & Admin \u2014 illustrative",
+      "designation": "Officer (demo)",
+      "card_id": "VTL-CARD-0016",
+      "shift": "General Day Shift (demo)",
+      "record_type": "Synthetic fixture \u2014 not a real VTL employee"
+    }
+  ]
+}

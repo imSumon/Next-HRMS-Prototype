@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Next-HRMS Prototype</title><link rel="stylesheet" href="styles.css"></head><body>
+<div id="login-screen" class="login-screen">
+  <div class="login-hero">
+    <div class="login-brand"><img class="owner-logo" src="assets/proedge-logo.webp" alt="Pro-Edge Associates Limited"><span class="brand-divider"></span><img class="product-logo" src="assets/nree-logo.png" alt="NREE HRMS"><div class="brand-product-name"><b>NREE HRMS</b><small>A product by Pro-Edge Associates Limited</small></div></div>
+    <div class="hero-copy"><span class="eyebrow">ONE PLATFORM · MULTIPLE COMPANIES</span><h1>People operations,<br><em>connected.</em></h1><p>Explore the platform administration experience using legacy company references and audit evidence.</p>
+      <div class="hero-points"><span>✓ Company-aware workspace</span><span>✓ Configurable policy history</span><span>✓ Migration traceability</span></div>
+    </div>
+    <small class="login-disclaimer">Next-HRMS v0.9.37 · Prototype environment · no live data connection</small>
+  </div>
+  <div class="login-panel-wrap"><form id="login-form" class="login-panel">
+    <span class="eyebrow">SECURE WORKSPACE ACCESS</span><h2>Welcome back</h2><p>Select your assigned role and company workspace.</p>
+    <label for="login-role">Login type</label><select id="login-role"><option value="superadmin">Platform Superadmin</option><option value="company">Company Admin</option><option value="hr">HR Manager</option><option value="manager">Department Manager</option><option value="employee">Employee / ESS</option></select>
+    <div id="company-login-fields"><label id="company-login-label" for="login-company">Company workspace</label><select id="login-company"><option value="co-proedge">Pro-Edge Associates Limited</option><option value="co-vtl">Viyellatex</option><option value="co-nree">NREE DEMO</option><option value="co-pms">PMS DEMO</option></select></div>
+    <label for="login-email">Email address</label><input id="login-email" type="email" value="superadmin@next-hrms.test" required>
+    <label for="login-password">Password</label><input id="login-password" type="password" value="demo-only" required>
+    <div class="login-hint">Demo credentials are prefilled for this prototype only.</div>
+    <button class="btn primary login-submit" type="submit">Sign in to Next-HRMS →</button>
+    <div class="login-error" id="login-error"></div>
+    <small>Authentication is simulated. Do not enter real credentials.</small>
+  </form></div>
+</div>
+<div class="shell" id="app-shell" style="display:none"><aside class="sidebar"><div class="brand"><img class="sidebar-product-logo" src="assets/nree-logo.png" alt="NREE HRMS"><div><b>NREE HRMS</b><small>A product by Pro-Edge</small></div></div><div class="environment">● Legacy reference data · demo mode</div><p class="navlabel">WORKSPACE</p><nav id="nav"><button data-page="overview" class="active">▦ Overview</button><button data-page="superadmin">◇ Superadmin</button><button data-page="enrollment">＋ Company enrollment</button><button data-page="companies">▤ Companies</button><button data-page="access">♙ Users & access</button><button data-page="employees">♧ Employees</button><button data-page="attendance">◷ Attendance</button><button data-page="leave">▣ Leave & approvals</button><button data-page="payroll">＄ Payroll & reports</button><button data-page="settings">⚙ Company setup</button><button data-page="audit">≡ Audit trail</button><button data-page="policyhistory">◷ Policy history</button><button data-page="legacyhistory">▤ Legacy employee history</button></nav><div class="profile"><span class="avatar" id="profile-avatar">SA</span><div><b id="profile-name">Platform Superadmin</b><small id="profile-email">superadmin@next-hrms.test</small><button class="linkbtn" id="logout" type="button">Sign out</button></div></div></aside><main><header><div><small class="eyebrow">UNIVERSAL HUMAN RESOURCES MANAGEMENT</small><h1 id="title">Overview</h1></div><div class="topright"><span class="live">● Demo mode</span><span id="active-role" class="live">Platform Superadmin</span><button class="help" id="help">?</button></div></header><section id="content" class="content"></section><footer>Prototype v0.8.3 · Synthetic data only · Not connected to live HRMS or database</footer></main></div><div id="modal"></div><div id="toast"></div><script src="app.js"></script></body></html>

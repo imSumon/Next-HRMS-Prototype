@@ -1,0 +1,2 @@
+# ELM Photo Import — v0.9.31
+Fixed invisible-looking label-based upload entry by using an Ant Design Button and hidden file input ref. Added wizard steps, photo preview, matched/rejected counts, review table, explicit confirm and collapsible prototype note. Existing image validation, resizing, company-scoped employee matching and browser-local save remain unchanged. Manual browser UAT pending. No backend changes.
