@@ -11,7 +11,7 @@ import './styles.css'
 
 type Role = 'superadmin' | 'company' | 'hr' | 'manager' | 'employee'
 type Page = string
-type DemoData = Omit<typeof initialData, 'leave' | 'audit' | 'companies' | 'employees' | 'punches' | 'policies'> & { companies: any[]; employees: any[]; punches: any[]; policies: any[]; leave: any[]; leaveBalances: any[]; audit: any[] }
+type DemoData = Omit<typeof initialData, 'leave' | 'audit' | 'companies' | 'employees' | 'punches' | 'policies' | 'leaveBalances'> & { companies: any[]; employees: any[]; punches: any[]; policies: any[]; leave: any[]; leaveBalances: any[]; audit: any[] }
 const APP_VERSION = '0.9.49'
 const legacyPath = '/legacy-prototype/Next-HRMS-Prototype-v0.8.9/'
 const TEST_DATA_KEY = 'next-hrms-react-v0.9.24-test-data'
@@ -835,12 +835,7 @@ export default function App() {
     if (companyEmployees.length < 6) { message.error('At least six employee records are required in this company to load the coordinated demo.'); return }
     if (!window.confirm(`Load coordinated synthetic test records into ${company?.name || auth.companyId}? The first six company employees will be used. Existing demo records for this company will be replaced.`)) return
     const bundle = buildFullDemoDataset()
-    const sourceCompanyId = 'co-nree'
     const idMap = new Map(bundle.data.employees.map((e:any, i:number) => [e.id, companyEmployees[i].id]))
-    const employeeMap = (row:any) => {
-      const target = companyEmployees.find((e:any) => e.id === idMap.get(row.id)) || companyEmployees[0]
-      return { ...row, id: target.id, employeeCode: target.employeeCode || target.id, name: target.name, employeeName: target.name, employee: target.name, email: target.email, dept: target.dept || target.department || row.dept, department: target.department || target.dept || row.department, companyId: auth.companyId, recordSource: 'Synthetic demo dataset v0.9.22' }
-    }
     const mapEmployeeId = (id:string) => idMap.get(id) || id
     const mappedData = {
       employees: [],
@@ -1555,16 +1550,16 @@ export default function App() {
             <Col xs={12} md={2}><Button block onClick={()=>{setEmployeeSearch('');setEmployeeDeptFilter('All');setEmployeeDesignationFilter('All');setEmployeeStatusFilter('All')}}>Reset</Button></Col>
           </Row>
           {filteredEmployees.length ? <Table rowKey="id" size="middle" dataSource={filteredEmployees} scroll={{x:1100}} pagination={{pageSize:10,showSizeChanger:true,pageSizeOptions:[10,20,50],showTotal:t=>`${t} employees`}} columns={[
-            {title:'Emp ID',key:'employeeCode',dataIndex:'employeeCode',width:140, sorter:(a,b)=>String(a.employeeCode).localeCompare(String(b.employeeCode))},
-            {title:'Employee',key:'name',dataIndex:'name',width:220, sorter:(a,b)=>String(a.name).localeCompare(String(b.name)),render:(v,r)=><Space><Avatar src={employeePhoto(r.employeeCode)} icon={<UserOutlined/>}/><Space direction="vertical" size={0}><b>{v}</b><Text type="secondary">{r.title||'Designation not set'}</Text></Space></Space>},
-            {title:'Email',key:'email',dataIndex:'email',render:v=>v||'—'},
-            {title:'Phone',key:'phone',dataIndex:'phone',render:v=>v||'—'},
-            {title:'Designation',key:'title',dataIndex:'title',render:v=>v||'—'},
-            {title:'Department',key:'dept',dataIndex:'dept',render:v=>v||'—'},
-            {title:'Branch / Unit',key:'branch',render:(_,r)=><span>{r.branch||'—'}{r.unit?` / ${r.unit}`:''}</span>},
-            {title:'Joining Date',key:'joiningDate',dataIndex:'joiningDate',render:v=>v||'—'},
-            {title:'Status',key:'status',dataIndex:'status',render:v=><Tag color={v==='Inactive'?'red':'green'}>{v||'Active'}</Tag>},
-            {title:'Lifecycle',key:'lifecycle',render:(_,r)=><Button size="small" onClick={()=>openLifecycle(r.id)}>Manage</Button>}
+            {title:'Emp ID',key:'employeeCode',dataIndex:'employeeCode',width:140, sorter:(a:any,b:any)=>String(a.employeeCode).localeCompare(String(b.employeeCode))},
+            {title:'Employee',key:'name',dataIndex:'name',width:220, sorter:(a:any,b:any)=>String(a.name).localeCompare(String(b.name)),render:(v:any,r:any)=><Space><Avatar src={employeePhoto(r.employeeCode)} icon={<UserOutlined/>}/><Space direction="vertical" size={0}><b>{v}</b><Text type="secondary">{r.title||'Designation not set'}</Text></Space></Space>},
+            {title:'Email',key:'email',dataIndex:'email',render:(v:any)=>v||'—'},
+            {title:'Phone',key:'phone',dataIndex:'phone',render:(v:any)=>v||'—'},
+            {title:'Designation',key:'title',dataIndex:'title',render:(v:any)=>v||'—'},
+            {title:'Department',key:'dept',dataIndex:'dept',render:(v:any)=>v||'—'},
+            {title:'Branch / Unit',key:'branch',render:(_:any,r:any)=><span>{r.branch||'—'}{r.unit?` / ${r.unit}`:''}</span>},
+            {title:'Joining Date',key:'joiningDate',dataIndex:'joiningDate',render:(v:any)=>v||'—'},
+            {title:'Status',key:'status',dataIndex:'status',render:(v:any)=><Tag color={v==='Inactive'?'red':'green'}>{v||'Active'}</Tag>},
+            {title:'Lifecycle',key:'lifecycle',render:(_:any,r:any)=><Button size="small" onClick={()=>openLifecycle(r.id)}>Manage</Button>}
           ].filter((c:any) => showEmployeeField('Employee Directory',String(c.key)))}/> : <Empty description="No employees match these filters. Adjust filters or add an employee."/>}
         </Card>
 
