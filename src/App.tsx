@@ -1180,7 +1180,7 @@ export default function App() {
   const changeDefaultShift = (row:any, shiftId:string, effectiveFrom:string) => {
     if(!row||row.companyId!==auth?.companyId||row.status!=='Active'||!row.isDefault){message.error('Only active company default shifts can be changed.');return}
     if(!shiftRecords.some(x=>x.id===shiftId&&x.companyId===auth?.companyId&&x.status==='Active')){message.error('Select an active company shift.');return}
-    if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(effectiveFrom)||effectiveFrom<=row.effectiveFrom){message.error('Change date must be later than the current effective-from date.');return}
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(effectiveFrom)||effectiveFrom<=row.effectiveFrom){message.error('Change date must be later than the current effective-from date.');return}
     if(defaultShiftProtected(row.employeeId,effectiveFrom)){message.error('Published/locked roster exists from this date. Review roster first; default shift was not changed.');return}
     const previousDay=new Date(new Date(effectiveFrom+'T00:00:00').getTime()-86400000).toISOString().slice(0,10)
     setAssignments(prev=>[...prev.map(a=>a.id===row.id?{...a,effectiveTo:previousDay,status:'Superseded'}:a),{...row,id:`DEF-${Date.now()}`,shiftId,effectiveFrom,effectiveTo:'',status:'Active',createdAt:new Date().toISOString(),createdBy:auth?.persona}])
@@ -1196,7 +1196,7 @@ export default function App() {
   }
   const correctDefaultShift = (row:any, shiftId:string, from:string) => {
     if(row.companyId!==auth?.companyId||row.status!=='Active'||!row.isDefault)return
-    if(!shiftRecords.some(x=>x.id===shiftId&&x.companyId===auth?.companyId&&x.status==='Active')||!/^\\d{4}-\\d{2}-\\d{2}$/.test(from)){message.error('Select valid shift and date.');return}
+    if(!shiftRecords.some(x=>x.id===shiftId&&x.companyId===auth?.companyId&&x.status==='Active')||!/^\d{4}-\d{2}-\d{2}$/.test(from)){message.error('Select valid shift and date.');return}
     if(defaultShiftProtected(row.employeeId,from)){message.error('Published/locked roster exists. Cannot correct this default until roster is reviewed.');return}
     if(assignments.some(a=>a.id!==row.id&&a.companyId===auth?.companyId&&a.employeeId===row.employeeId&&a.isDefault&&a.effectiveFrom<= (row.effectiveTo||'9999-12-31')&&(!a.effectiveTo||a.effectiveTo>=from))){message.error('Correction overlaps another default period.');return}
     setAssignments(prev=>prev.map(a=>a.id===row.id?{...a,shiftId,effectiveFrom:from,correctedAt:new Date().toISOString(),correctedBy:auth?.persona}:a))
