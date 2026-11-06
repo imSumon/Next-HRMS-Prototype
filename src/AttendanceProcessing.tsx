@@ -25,7 +25,7 @@ export default function AttendanceProcessing({employees,punches,corrections,comp
  const [locks,setLocks]=useState<Record<string,{by:string;at:string;fingerprint:string}>>(()=>{try{return JSON.parse(localStorage.getItem(storageKey)||'{}')}catch{return {}}})
  useEffect(()=>{try{localStorage.setItem(storageKey,JSON.stringify(locks))}catch{}},[locks,storageKey])
  const canFinalize=role==='company'||role==='hr'
- const results=useMemo<Result[]>(()=>employees.map((e,i)=>{
+ const results=useMemo<Result[]>(()=>employees.map(e=>{
   const published=rosters.filter(r=>r.employeeId===e.id&&r.date===date&&r.status==='Published')
   const roster=published.length===1?published[0]:undefined
   const snapshot=roster?.shiftSnapshot
