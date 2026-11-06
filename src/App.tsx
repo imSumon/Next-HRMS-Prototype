@@ -12,7 +12,7 @@ import './styles.css'
 type Role = 'superadmin' | 'company' | 'hr' | 'manager' | 'employee'
 type Page = string
 type DemoData = Omit<typeof initialData, 'leave' | 'audit' | 'companies' | 'employees' | 'punches' | 'policies' | 'leaveBalances'> & { companies: any[]; employees: any[]; punches: any[]; policies: any[]; leave: any[]; leaveBalances: any[]; audit: any[] }
-const APP_VERSION = '0.9.50'
+const APP_VERSION = '0.9.51'
 const legacyPath = '/legacy-prototype/Next-HRMS-Prototype-v0.8.9/'
 const TEST_DATA_KEY = 'next-hrms-react-v0.9.24-test-data'
 const { Header, Sider, Content } = Layout
