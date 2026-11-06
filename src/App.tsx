@@ -1,7 +1,7 @@
 import { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } from 'react'
 import * as XLSX from 'xlsx'
 import type { ReactNode } from 'react'
-import { Alert, Avatar, Badge, Button, Card, Col, Descriptions, Empty, Form, Input, Layout, Menu, Modal, Progress, Row, Select, Space, Steps, Switch, Table, Tabs, Tag, Typography, message } from 'antd'
+import { Alert, Avatar, Badge, Button, Card, Col, Descriptions, Empty, Form, Input, Layout, Menu, Modal, Progress, Row, Select, Space, Statistic, Steps, Switch, Table, Tabs, Tag, Typography, message } from 'antd'
 import type { MenuProps, TableColumnsType } from 'antd'
 import { AppstoreOutlined, AuditOutlined, BankOutlined, CalendarOutlined, CheckCircleOutlined, ClockCircleOutlined, CloudUploadOutlined, DashboardOutlined, DatabaseOutlined, DollarOutlined, CalculatorOutlined, FileTextOutlined, LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PlusOutlined, SettingOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons'
 import initialData from './data/demo.json'
