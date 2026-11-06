@@ -8,6 +8,7 @@ import initialData from './data/demo.json'
 import { buildFullDemoDataset } from './data/fullDemoDataset'
 import AttendanceLab from './AttendanceLab'
 import PayrollDemo from './PayrollDemo'
+import LeaveOtUat from './LeaveOtUat'
 import './styles.css'
 
 type Role = 'superadmin' | 'company' | 'hr' | 'manager' | 'employee'
@@ -705,6 +706,7 @@ const hrMenu = [
   { key: 'rosterreport', icon: <FileTextOutlined />, label: 'Roster Reports' },
   { key: 'attendance', icon: <ClockCircleOutlined />, label: 'Attendance' },
   { key: 'leave', icon: <CheckCircleOutlined />, label: 'Leave Management' },
+  { key: 'ot', icon: <ClockCircleOutlined />, label: 'OT Management' },
   { key: 'payroll', icon: <DatabaseOutlined />, label: 'Payroll & Reports' },
   { key: 'settings', icon: <SettingOutlined />, label: 'Company Setup' },
 ]
@@ -1796,7 +1798,8 @@ export default function App() {
         </Card>
       </>
     }
-    if (page === 'payroll') return <PayrollDemo employees={scopedEmployees} companyId={auth?.companyId || ''} role={auth?.role || 'hr'}/> 
+    if (page === 'ot') return <LeaveOtUat employees={scopedEmployees} companyId={auth?.companyId || ''} role={auth?.role || 'hr'} actor={auth?.persona || 'HR User'}/> 
+     if (page === 'payroll') return <PayrollDemo employees={scopedEmployees} companyId={auth?.companyId || ''} role={auth?.role || 'hr'}/> 
      if (page === 'settings') return <><div className="page-heading"><div><Title level={2}>Company setup</Title><Text type="secondary">Configure organization, shifts, attendance, leave, holidays and payroll rules.</Text></div></div><Alert type="warning" showIcon message="Company policy setup is illustrative" description="The legacy setup wizard has seven configuration sections. This React page provides the setup map; detailed policy field editing is not yet ported."/><Row gutter={[16,16]} className="section-row">{['Organization & calendar','Shift configuration','Attendance policy','Leave policy','Holidays & calendars','Payroll & approvals','Review & complete'].map((x,i)=><Col xs={24} md={12} lg={8} key={x}><Card><Avatar>{i+1}</Avatar><Title level={5}>{x}</Title><Tag color="orange">Review required</Tag></Card></Col>)}</Row></>
     return <Empty description="Page not available" />
   }
