@@ -789,6 +789,7 @@ export default function App() {
   const [defaultEditFrom, setDefaultEditFrom] = useState('')
   const [defaultHistoryEmployee, setDefaultHistoryEmployee] = useState('')
 
+  const [shiftResultDetailsOpen, setShiftResultDetailsOpen] = useState(false)
   const [shiftAssignResult, setShiftAssignResult] = useState<{type:"success"|"warning"|"error",saved:number,skipped:string[]}|null>(null)
   const [rosterMonth, setRosterMonth] = useState(new Date().toISOString().slice(0,7))
   const [rosterPrefs, setRosterPrefs] = useState(() => { try { return JSON.parse(localStorage.getItem(`${TEST_DATA_KEY}:roster-prefs`) || '{"employeeFutureVisible":true,"hrDefault":"Next month","employeeDefault":"Next month"}') } catch { return {employeeFutureVisible:true,hrDefault:'Next month',employeeDefault:'Next month'} } })
@@ -1266,17 +1267,17 @@ export default function App() {
   const hasAssignmentConflict = (employeeId:string, from:string, to:string, excludeId?:string) => assignments.some(a=>a.companyId===auth?.companyId&&a.employeeId===employeeId&&a.status==='Active'&&a.id!==excludeId&&(!a.effectiveTo||a.effectiveTo>=from)&&(!to||a.effectiveFrom<=to))
   const assignShift = (values:any) => {
     const emp=shiftEmployees.find(e=>e.id===values.employeeId), sh=shiftRecords.find(x=>x.id===values.shiftId&&x.companyId===auth?.companyId&&x.status==='Active')
-    if(!emp||!sh){message.error('Select a valid employee and active shift.');return}
+    if(!emp||!sh){setShiftAssignResult({type:'error',saved:0,skipped:['Select a valid employee and active shift.']});return}
     const from=String(values.effectiveFrom||''),to=String(values.effectiveTo||'')
-    if(!from||(to&&to<from)){message.error('Effective-to date cannot be earlier than effective-from date.');return}
-    if(hasAssignmentConflict(emp.id,from,to)){message.error('Overlapping active shift assignment exists.');return}
-    setAssignments(prev=>[...prev,{...values,id:`AS-${Date.now()}`,employeeName:emp.name,status:'Active',companyId:auth?.companyId,isDefault:true,createdAt:new Date().toISOString(),createdBy:auth?.persona}]); addAudit('Assigned employee shift',`${emp.name} · ${sh.name}`); singleAssignForm.resetFields(); message.success(`Shift assigned to ${emp.name}. Create and publish a date-specific roster for Attendance.`)
+    if(!from||(to&&to<from)){setShiftAssignResult({type:'error',saved:0,skipped:['Enter a valid effective date range. End date cannot be before start date.']});return}
+    if(hasAssignmentConflict(emp.id,from,to)){setShiftAssignResult({type:'error',saved:0,skipped:[`${emp.name} (${emp.id}): duplicate/overlapping active assignment. Review existing dates before retrying.`]});return}
+    setAssignments(prev=>[...prev,{...values,id:`AS-${Date.now()}`,employeeName:emp.name,status:'Active',companyId:auth?.companyId,isDefault:true,createdAt:new Date().toISOString(),createdBy:auth?.persona}]); addAudit('Assigned employee shift',`${emp.name} · ${sh.name}`); singleAssignForm.resetFields(); setShiftAssignResult({type:'success',saved:1,skipped:[]})
   }
   const bulkAssignShift = (values:any) => {
     const ids: string[]=bulkSelectedIds, sh=shiftRecords.find(x=>x.id===values.shiftId&&x.companyId===auth?.companyId&&x.status==='Active')
     const from=String(values.effectiveFrom||''),to=String(values.effectiveTo||'')
     if(!ids.length||!sh||!from||(to&&to<from)){
-      setShiftAssignResult({type:'error',text:'Assignment not saved. Select employees, an active shift and a valid effective date range.'});return
+      setShiftAssignResult({type:'error',saved:0,skipped:['Select employees, an active shift and a valid effective date range.']});return
     }
     let added=0;const skipped:string[]=[];const newRows:any[]=[]
     ids.forEach((id,i)=>{
@@ -1385,9 +1386,8 @@ export default function App() {
         if(!emp||!sh||!from|| (to&&to<from) || hasAssignmentConflict(employeeId,from,to||'9999-12-31')) { errors.push(`Row ${i+2}: employee/active shift/date missing or assignment conflict`); return }
         setAssignments(prev=>[...prev,{id:`AS-IMP-${Date.now()}-${i}`,employeeId,employeeName:emp.name,shiftId:sh.id,effectiveFrom:from,effectiveTo:to,status:'Active',companyId:auth?.companyId}]); added++
       })
-      message.success(`${added} assignment(s) imported. ${errors.length} row(s) skipped.`)
-      if(errors.length) Modal.info({title:'Import results',width:600,content:<div>{errors.slice(0,20).map(x=><div key={x}>{x}</div>)}</div>})
-    } catch { message.error('Could not read this file. Use the supplied CSV or XLSX template.') }
+      setShiftAssignResult({type:errors.length?(added?'warning':'error'):'success',saved:added,skipped:errors}); setShiftResultDetailsOpen(false)
+    } catch { setShiftAssignResult({type:'error',saved:0,skipped:['Could not read this file. Use the supplied CSV or XLSX template.']}) }
   }
   const fieldConfigPage = () => {
     const companyName = data.companies.find(c => c.id === effectiveConfigCompanyId)?.name || 'No company selected'
@@ -1690,13 +1690,14 @@ export default function App() {
           <Col xs={12} md={6}><Form.Item name="effectiveTo" label="Effective to"><Input type="date"/></Form.Item></Col>
         </Row>
         <Button type="primary" htmlType="submit" disabled={!bulkSelectedIds.length}>Save assignments for {bulkSelectedIds.length} employee(s)</Button>
-        {shiftAssignResult&&<Card className="section-row" size="small" title={<Space><CheckCircleOutlined style={{color:shiftAssignResult.skipped.length?'#d48806':'#389e0d'}}/>Shift Assignment Result</Space>} extra={<Button size="small" onClick={()=>setShiftAssignResult(null)}>Close</Button>}>
-          <Row gutter={12}><Col span={8}><Statistic title="Processed" value={shiftAssignResult.saved+shiftAssignResult.skipped.length}/></Col><Col span={8}><Statistic title="Saved" value={shiftAssignResult.saved} valueStyle={{color:'#389e0d'}}/></Col><Col span={8}><Statistic title="Skipped" value={shiftAssignResult.skipped.length} valueStyle={{color:shiftAssignResult.skipped.length?'#d48806':undefined}}/></Col></Row>
-          {shiftAssignResult.skipped.length>0&&<details style={{marginTop:12}}><summary style={{cursor:'pointer',fontWeight:600}}>Review {shiftAssignResult.skipped.length} skipped employee(s)</summary><div style={{maxHeight:230,overflowY:'auto',marginTop:8}}>{shiftAssignResult.skipped.map((reason,i)=><div key={i} style={{padding:'6px 0',borderBottom:'1px solid #eee'}}>{reason}</div>)}</div><Text type="secondary">Review overlapping effective dates before retrying. No skipped record was saved.</Text></details>}
-          <Space wrap style={{marginTop:14}}><Button type="primary" onClick={()=>{setShiftAssignMode('view');setShiftAssignResult(null)}}>View Saved Assignments</Button>{shiftAssignResult.skipped.length>0&&<Button onClick={()=>document.querySelector('details')?.setAttribute('open','')}>Review Skipped Employees</Button>}</Space>
-        </Card>}
+        
       </Form></>}
         {shiftAssignMode==='import'&&<><Title level={5}>Import employee shift assignments</Title><Text type="secondary">Download the template, complete employee ID, shift name and effective dates, then import. Existing assignment conflicts are skipped.</Text><div className="section-row"><Space wrap><Button onClick={()=>downloadShiftTemplate('csv')}>Download CSV template</Button><Button onClick={()=>downloadShiftTemplate('xlsx')}>Download Excel template</Button><Button type="primary" icon={<CloudUploadOutlined/>} onClick={()=>document.getElementById('shift-assignment-import')?.click()}>Choose CSV / Excel file</Button><input id="shift-assignment-import" type="file" accept=".csv,.xlsx,.xls" style={{display:'none'}} onChange={e=>{const file=e.target.files?.[0];if(file)void importShiftFile(file);e.currentTarget.value=''}}/></Space></div></>}
+{shiftAssignResult&&<Card className="section-row" size="small" title={<Space><CheckCircleOutlined style={{color:shiftAssignResult.skipped.length?'#d48806':'#389e0d'}}/>Shift Assignment Result</Space>} extra={<Button size="small" onClick={()=>setShiftAssignResult(null)}>Close</Button>}>
+          <Row gutter={12}><Col span={8}><Statistic title="Processed" value={shiftAssignResult.saved+shiftAssignResult.skipped.length}/></Col><Col span={8}><Statistic title="Saved" value={shiftAssignResult.saved} valueStyle={{color:'#389e0d'}}/></Col><Col span={8}><Statistic title="Skipped" value={shiftAssignResult.skipped.length} valueStyle={{color:shiftAssignResult.skipped.length?'#d48806':undefined}}/></Col></Row>
+          {shiftAssignResult.skipped.length>0&&<details open={shiftResultDetailsOpen} onToggle={e=>setShiftResultDetailsOpen(e.currentTarget.open)} style={{marginTop:12}}><summary style={{cursor:'pointer',fontWeight:600}}>Review {shiftAssignResult.skipped.length} skipped / invalid record(s)</summary><div style={{maxHeight:230,overflowY:'auto',marginTop:8}}>{shiftAssignResult.skipped.map((reason,i)=><div key={i} style={{padding:'6px 0',borderBottom:'1px solid #eee'}}>{reason}</div>)}</div><Text type="secondary">Review the listed validation errors or overlapping effective dates before retrying. Skipped records were not saved.</Text></details>}
+          <Space wrap style={{marginTop:14}}><Button type="primary" onClick={()=>{setShiftAssignMode('view');setShiftAssignResult(null)}}>View Saved Assignments</Button>{shiftAssignResult.skipped.length>0&&<Button onClick={()=>setShiftResultDetailsOpen(true)}>Review Errors / Duplicates</Button>}</Space>
+        </Card>}
         {shiftAssignMode==='view'&&<><Title level={5}>Existing Shift Assignments</Title><Row gutter={[12,12]} className="section-row"><Col xs={24} md={8}><Input.Search allowClear placeholder="Search employee name or ID" value={shiftAssignSearch} onChange={e=>setShiftAssignSearch(e.target.value)}/></Col><Col xs={24} md={6}><Select allowClear style={{width:'100%'}} placeholder="All shifts" value={shiftAssignShiftFilter||undefined} onChange={v=>setShiftAssignShiftFilter(v||'')} options={shiftRecords.filter(x=>x.companyId===auth?.companyId).map(x=>({label:x.name,value:x.id}))}/></Col></Row><Row gutter={12} className="section-row"><Col xs={12} md={8}><Card size="small"><Statistic title="Saved assignment records" value={assignments.filter(a=>a.companyId===auth?.companyId).length}/></Card></Col><Col xs={12} md={8}><Card size="small"><Statistic title="Assigned employees" value={new Set(assignments.filter(a=>a.companyId===auth?.companyId&&a.status==='Active').map(a=>a.employeeId)).size}/></Card></Col><Col xs={24} md={8}><Card size="small"><Statistic title="Active assignments" value={assignments.filter(a=>a.companyId===auth?.companyId&&a.status==='Active').length}/></Card></Col></Row>{table(assignments.filter(a=>a.companyId===auth?.companyId&&(!shiftAssignShiftFilter||a.shiftId===shiftAssignShiftFilter)&&(!shiftAssignSearch||String(a.employeeName||'').toLowerCase().includes(shiftAssignSearch.toLowerCase())||String(a.employeeId||'').toLowerCase().includes(shiftAssignSearch.toLowerCase()))).map(a=>({...a,shiftName:shiftRecords.find(x=>x.id===a.shiftId)?.name||'Shift unavailable'})),[{title:'Employee',dataIndex:'employeeName'},{title:'Employee ID',dataIndex:'employeeId'},{title:'Shift',dataIndex:'shiftName'},{title:'Effective from',dataIndex:'effectiveFrom'},{title:'Effective to',dataIndex:'effectiveTo',render:v=>v||'Open-ended'},{title:'Status',dataIndex:'status',render:v=><Tag color={v==='Active'?'green':'default'}>{v}</Tag>}])}</>}
         {shiftAssignMode==='default'&&<div className="section-row">
           <Title level={5}>Employee Default Shift Register</Title>
