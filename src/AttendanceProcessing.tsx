@@ -31,7 +31,7 @@ export default function AttendanceProcessing({employees,punches,corrections,comp
   const roster=published.length===1?published[0]:undefined
   const snapshot=roster?.shiftSnapshot
   const isOff=!!roster&&(roster.shiftId==='OFF'||/weekly off/i.test(roster.shiftName||''))
-  const validShift=!!roster&&!isOff&&!!snapshot&&/^([01]\d|2[0-3]):[0-5]$/.test(snapshot.start||'')&&/^([01]\d|2[0-3]):[0-5]$/.test(snapshot.end||'')
+  const validShift=!!roster&&!isOff&&!!snapshot&&/^([01]\d|2[0-3]):[0-5]\d$/.test(snapshot.start||'')&&/^([01]\d|2[0-3]):[0-5]\d$/.test(snapshot.end||'')
   const shift=isOff?'Weekly Off':roster?(snapshot?.name||roster.shiftName||'Published shift'):'No published roster'
   const startClock=validShift?snapshot!.start!:'08:00'
   const endClock=validShift?snapshot!.end!:'17:00'
