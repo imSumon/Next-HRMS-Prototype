@@ -158,3 +158,8 @@ html, body, #root { min-height: 100%; }
 .ant-table-body,.ant-table-content{cursor:grab}
 .ant-table-body.table-grabbing,.ant-table-content.table-grabbing{cursor:grabbing!important;user-select:none}
 @media (max-width:600px){.smart-time-input{gap:2px;padding:3px}.smart-time-input select{font-size:13px}}
+
+/* Soft pastel action dropdown for employee shift assignment. */
+.shift-assign-action-select.ant-select .ant-select-selector { background: #e9f7ef !important; border-color: #a5d6b8 !important; }
+.shift-assign-action-select.ant-select .ant-select-selection-item { color: #17603d !important; font-weight: 600; }
+.shift-assign-action-select.ant-select:hover .ant-select-selector { border-color: #6eae89 !important; }
