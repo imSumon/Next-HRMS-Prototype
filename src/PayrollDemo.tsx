@@ -1,5 +1,5 @@
 import {useMemo,useState} from 'react'
-import {Alert,Button,Card,Col,InputNumber,Row,Select,Space,Statistic,Table,Tag,Typography,message} from 'antd'
+import {Alert,Button,Card,Col,InputNumber,Row,Space,Statistic,Table,Tag,Typography,message} from 'antd'
 import * as XLSX from 'xlsx'
 const {Title,Text}=Typography
 type Employee={id:string;employeeCode?:string;name:string;dept?:string;department?:string;companyId:string}
@@ -9,12 +9,11 @@ const round=(n:number)=>Math.round(n*100)/100
 export default function PayrollDemo({employees,companyId,role}:{employees:Employee[];companyId:string;role:string}){
  const [month,setMonth]=useState(monthNow)
  const key=`next-hrms-payroll-uat-v0955:${companyId}:${month}`
- const [revision,setRevision]=useState(0)
- const [status,setStatus]=useState<'Draft'|'Reviewed'>(()=>'Draft')
+ const [status,setStatus]=useState<'Draft'>(()=>'Draft')
  const [salary,setSalary]=useState<Record<string,Salary>>({})
  const [prepared,setPrepared]=useState(false)
  const people=useMemo(()=>employees.filter(e=>e.companyId===companyId).slice(0,50),[employees,companyId])
- const load=(m:string)=>{setMonth(m);setRevision(v=>v+1);setStatus('Draft');try{const x=JSON.parse(localStorage.getItem(`next-hrms-payroll-uat-v0955:${companyId}:${m}`)||'{}');setSalary(x);setPrepared(Object.keys(x).length>0)}catch{setSalary({});setPrepared(false)}}
+ const load=(m:string)=>{setMonth(m);setStatus('Draft');try{const x=JSON.parse(localStorage.getItem(`next-hrms-payroll-uat-v0955:${companyId}:${m}`)||'{}');setSalary(x);setPrepared(Object.keys(x).length>0)}catch{setSalary({});setPrepared(false)}}
  const update=(id:string,field:keyof Salary,value:number)=>{const next={...salary,[id]:{...salary[id],[field]:value}};setSalary(next);localStorage.setItem(key,JSON.stringify(next));setStatus('Draft')}
  const prepare=()=>{if(!['hr','company'].includes(role))return;const days=new Date(Number(month.slice(0,4)),Number(month.slice(5,7)),0).getDate();const next={...salary};people.forEach((e,i)=>{if(!next[e.id])next[e.id]={gross:18000+(i%8)*2500,payableDays:days-(i%9===0?1:0),otherDeduction:i%11===0?250:0}});setSalary(next);localStorage.setItem(key,JSON.stringify(next));setPrepared(true);setStatus('Draft');message.success('Demo salary data prepared; existing employee values preserved')}
  const days=new Date(Number(month.slice(0,4)),Number(month.slice(5,7)),0).getDate()
